@@ -29,3 +29,5 @@ FILE FORMAT:
 32x32 is the material size, but you can define new materials in Materials.ldata, the original set weren't finished, but I was planning to add more and may upload more.
 
 Lotaris © 2017 - 2019.
+
+This also includes a couple of LDFL test files for you, test24 and test25. There are 28 in total, I can upload them if you want, but some of them will not load correctly due to using an older version of the format.
