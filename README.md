@@ -31,3 +31,8 @@ FILE FORMAT:
 Lotaris © 2017 - 2019.
 
 This also includes a couple of LDFL test files for you, test24 and test25. There are 28 in total, I can upload them if you want, but some of them will not load correctly due to using an older version of the format.
+
+
+Credit to SyntaxBomb for some support 
+
+lotaris.net coming soon
