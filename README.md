@@ -1,3 +1,5 @@
+# This version of Lotaris is Public Domain. 
+
 # LotarisOldClient
 
 This is the old Lotaris source code, before I threw everything out and restarted on December 1st, 2018, with BlitzMax NG instead of BlitzPlus. This was worked on intermittently from August 10th, 2018, to December 1st, 2018.
