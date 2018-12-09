@@ -1,0 +1,19 @@
+Global x#=0
+Global m#=0
+Global s#=0
+Function Round#( x#, m# )		; returns x rounded to multiple of m
+If m < 0.0 Then m = -m
+s# = Sgn( x )
+If x < 0.0 Then x = -x
+diff# = x Mod m
+If diff < .5 * m 
+Return ( x - diff ) * s
+Else
+Return ( m + x - diff ) * s
+End If
+End Function
+
+While Not KeyHit(1)
+a = Round#(66, 20)
+Print("a: " + a)
+Wend 

@@ -1,0 +1,146 @@
+; |||| LOTARIS version 4.0 ||||
+; © 2018 Aurora Interactive. Created by Cosmo for BlitzPlus. BlitzPlus © 2003-2015 BlitzResearch.
+
+; Notes
+; Inspired by ROBLOX © 2005 ROBLOX, Inc and © 2003, 2004-2018 ROBLOX Corporation. All rights reserved.
+; Inspired by BrickPlanet © 2017-2018 BLOX City, Inc, and its predecessor BLOX City © 2016-2017 BLOX City, Inc.
+; Also inspired by OpenBlox © 20??-2018 OpenBlox, and Vertineer © 2017 Vertineer.
+; Some ppl that are nice
+; ec_ho, borislav
+; people that this wouldn't exist without
+; Frederico Faggin, Gary Kildall (RIP 1942-1994, creator of CP/M and the BIOS), Bill Gates, Tim Paterson (created a clone of CP/M that became MS-DOS), Dan Bricklin, Steve Wozniak, Steve Jobs, John Opel (CEO of IBM 1981-1985?),
+; Adam Osborne, Charles Babbage, Paul Allen, David Weise (creator of protected mode Windows 3.x), Dave Cutler (lead of Windows NT development 1988-???), and some other people
+
+; more notes
+; This is based on a Main Window containing the game Canvas.
+
+; version history
+; v0.1.043.0 first release
+; v0.1.047.0 second release
+; v0.2
+; v0.3
+; v0.4
+; v0.5
+; v0.6
+; v0.7.311
+; "D3" beta (broken) 1.0.329
+; 2.0.0.0
+; 3.0.0.0
+; 4.0.057.0
+; 4.0.082.0
+; 4.0.200.0 
+
+SplashScreen()
+; Credit:
+; Function Round(); in this application is from a blitz3d exmample.
+; ---CORE GLOBALS--- ;
+Global version#=1.0
+Global build=0
+Global revision=0
+Global gamestate=0
+Global pid=0
+Global colourr=128
+Global colourg=128
+Global colourb=128
+Global currentfile$=0
+Global x=0
+Global y=0
+Global sizex=32
+Global sizey=32
+Global gsizex=10
+Global gsizey=10
+Global fps=60
+Global blocktype=0
+Global releasemode=1
+Global v4currentmaterial=0
+Global v4materialspopulated=0 ; it might be better to do this during init, instead of on demand [when user hits the "Change/Set Brick Material..." button
+Global v4currentscalecomplete=0 ; current scale complete
+Global v4oldscalex, v4oldscaley
+Global checksum$="Lotaris-Dataformat v1.2"
+AppTitle("Lotaris debug log")
+
+logtoconsole("Initializing type block")
+
+Type block
+Field blocktype ; Type 0: Normal block ; Type 1: Erase ; Type 2: BlockFX ; Type 3: Special block ; Type 4 = Material
+Field sblocksubtype 
+Field colour
+Field colourr
+Field colourg
+Field colourb
+Field x
+Field y
+Field sizex
+Field sizey
+Field mtex
+Field gridsizex
+Field gridsizey
+Field filled
+End Type
+
+
+Type level
+Field lscreencount
+Field lsize
+Field ldeathzone
+Field ldeath
+End Type
+
+Type player
+Field px
+Field py
+Field phealth
+Field parmor
+Field pdeath
+Field pdead
+Field pjumpheight
+Field pjumpaccel
+Field pspeed
+Field paccel
+Field pded
+End Type
+
+Type material
+Field v4mid$
+Field v4mtex$
+Field v4mname$
+Field v4mimage
+End Type 
+
+Function logtoconsole(txt$)
+Print("LOTARIS: [" + CurrentDate() + " " + CurrentTime() + "] " + txt$)
+Return 
+End Function
+
+Function debug_throw_error_and_crash_violently(error$,errorID)
+Print("FATAL ERROR!! OH SHIT!!: " + "Error " + errorID + " " + error$)
+RuntimeError("An error has occurred: "+ error$ + " [Error " + errorID +". Contact Cosmo#9088 for assistance.]") 
+End Function
+
+; CREDIT TO BLITZ3D EXAMPLES FOR THIS FUNCTION ONLY
+Function Round#( x#, m# )		; returns x rounded to multiple of m
+If m < 0.0 Then m = -m
+s# = Sgn( x )
+If x < 0.0 Then x = -x
+diff# = x Mod m
+If diff < .5 * m 
+Return ( x - diff ) * s
+Else
+
+Return ( m + x - diff ) * s
+End If
+End Function
+
+Function SplashScreen()
+
+EndGraphics
+AppTitle("Lotaris")
+Graphics 1024,768,0,2
+a=LoadImage("content/load/s_beta2.png")
+DrawImage a,0,0
+Flip
+Delay 3500
+FreeImage a
+EndGraphics
+
+End Function

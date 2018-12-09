@@ -1,0 +1,9 @@
+Include "ClientDownloader.bb"
+
+
+OpenRemoteFile("http://mojolabs.nz/codearcs.php")
+Print("test")
+Print(ReadRemoteLine())
+
+WaitKey
+End

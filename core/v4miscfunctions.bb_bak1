@@ -1,0 +1,6 @@
+; v4miscfunctions
+
+; Lotaris Compatible With - 4.1.312.0+ (Post Beta 1+)
+
+Function v4setstatustext()
+End Function

@@ -1,0 +1,98 @@
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern\fprq1\fcharset0 Courier New;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\qc\lang1033\f0\fs36 BlitzXML\par
+\pard\f1\fs20\par
+\b An Brief Introduction To XML\par
+\b0\tab BlitzXML is a library of functions for loading, modifying, and saving XML files. XML files (eXtendable Markup Language) look very similar to HTML. XML is slightly more strict than HTML, in that properties must be enclosed in quotes, all tags must have matching closing tags, and there must be only one root tag (a tag that is not inside any other). This is valid HTML code, but illegal XML code:\par
+\f2 <br>\par
+<font color=#FF0000>Text</font>\par
+\f1 The "color=#FF0000" needs to be changed so that #FF0000 is enclosed in double quotes, and "<br>" needs to be closed, like "<br></br>" (or simplified as "<br/>" - adding a slash to the end of a tag is a simplified way to close a tag with no contents). Also, everything needs to be moved into one root tag (called node in XML). So, the valid XHTML would be:\par
+\f2 <xhtml>\par
+  <br/>\par
+  <font color="#FF0000">Text</font>\par
+</xhtml>\par
+\f1\par
+\par
+\b Using BlitzXML\par
+\b0\tab BlitzXML includes functions for manipulating XML data within a program, and loading (parsing) and saving the data to/from a file. BlitzXML's XML file loader parses XML files roughly twice as fast as Microsoft Internet Explorer's XML parser loads XML files for viewing. XML data is accessed and manipulated based on \i nodes\i0 . A node is the equivalent of a HTML tag. A node may have any number of sub-nodes, called \i children\i0 . In addition to children, a node may contain textual data, which is found between the opening and closing tag when looking at an XML file. In the example above, "Text" is the font tag's data.\f0\fs24\par
+\f1\fs20\tab Any XML node may have a number of attributes, each attribute having a value. In the example above, the font tag has one attribute, named "color". The color attribute has the value of "#FF0000". By default, a BlitzXML node may not have more than 32 attributes, although this may be easily changed by modifying the MAX_ATTRIBUTES variable found in BlitzXML.bb.\par
+\tab BlitzXML contains a library of functions for manipulating nodes, and their data and attributes. Each function will be described in detail below (function parameters enclosed in square brackets "[]" are optional parameters). Try out example.bb (included in the BlitzXML Library archive) to see a working example of BlitzXML's functions (although it will only work with Blitz3D). Also try modifying "example.xml", as you will find that every aspect displayed in "example.bb" can be modified through this file, since example.bb loads all entities entirely from "example.xml". The use of XML with Blitz3D is extremely useful for level and world builders, and games that load the worlds and levels.\par
+\par
+\b BlitzXML Structure\par
+\b0\tab BlitzXML handles simultaneous XML files in memory in a simple way; each file is represented by a single root node. BlitzXML can contain an unlimited number of these root nodes (XML files) in memory. Because files are handled equally as nodes, they can be deleted, searched, saved to disk, etc. just as easily. When you load an XML file into BlitzXML, you are given a handle to it's root node. This is your one and only link to the contents of the file. Using the xmlNodeChild() and xmlNodeChildCount(), you can then retreive and read all it's child nodes and sub-child nodes, and sub-sub-child nodes, etc. "Closing" a XML files is as simple as calling xmlNodeDelete() on the XML file's root node.\par
+\tab In addition to having the option to load files, you can also create your own XML node structures, and save them if you want. Simply create a root node with the xmlNodeAdd(), specifying 0 as "parent". Then you can use this root node just created as if it was loaded from a file. When you're done constructing the node structure, you can save the data to a file. Saving an XML file is easy; Simply, call the xmlSave() function, specifying the output filename and root node of the XML data structure.\par
+\tab\i (See below function reference for detailed explanations of all the commands)\i0\par
+\par
+\b BlitzXML Function Reference\par
+\b0\par
+\f2 xmlNodeLevel(Node)\par
+\f1\tab This returns the level the specified node is at. If the node is the root node, it is on level 0. If it is a child of the root node, the level will be 1. If it is a child of a child of the root node, 2 will be returned, etc.\par
+\par
+\f2 xmlNodeParent(Node)\par
+\f1\tab This returns the specified node's parent node (the node the specified node is contained in). If the node has no parent (if it is the root node, in other words), 0 will be returned.\par
+\par
+\f2 xmlNodeChildCount(Node)\par
+\f1\tab This returns the number of children the node has. In many cases, the node will contain no children, therefore returning 0.\line\par
+\f2 xmlNodeChild(Node, ChildIndex)\par
+\f1\tab This returns one of the node's children, specified by ChildIndex. ChildIndex may be set anywhere between 1 and the amount of children the node has, which can be obtained from the xmlNodeChildCount() function.\par
+\par
+\f2 xmlNodeFind(Name$, Parent, Recurse = True)\par
+\f1\tab This function will search for first node matching the specified name and parent. Specifying a parent node limits the search range to children of that node only. Set Recurse to False if you don't want to search sub-children; only imediate children. To search through an entire XML file, simply specify the root node of that file.\par
+\par
+\f2 xmlNodeAdd(ParentNode, [Name$])\par
+\f1\tab This function adds a new node to the tree of existing XML nodes. Set ParentNode to the node you would like this to be a child of, or set it to 0 if this is a root node. Optionally, Name$ can be set to a name the node will initially be given, although the node can be renamed later with xmlNodeNameSet(). Note: only one root node is allowed in an XML file, and although BlitzXML does not "ban" the addition of more than one root node, multiple root nodes will be unaccessible when the node handle is lost (after saving then loading), in addition to incompatibility with any application supporting XML.\par
+\par
+\f2 xmlNodeDelete(Node)\par
+\f1\tab This function deletes the given node, including all of it's children (sub-nodes), if there are any. This is especially useful for deleting a XML file when finished reading. For example, you might load a file with xmlLoad(), then process all it's data, then call xmlNodeDelete() with the root node returned from xmlLoad() to free all the no-longer-used nodes from memory.\par
+\par
+\f2 xmlNodeNameSet(Node, Name$)\par
+\f1\tab This sets a node's name. Note: A node's name must not be a blank string.\par
+\par
+\f2 xmlNodeNameGet$(Node)\par
+\f1\tab This returns the name of the specified node.\par
+\par
+\f2 xmlNodeAttributeValueSet(Node, Attribute$, Value$)\par
+\f1\tab This sets the value of an attribute of a node. If the attribute does not exist, it will be created. The attribute's value may be any valid string of characters, not including double quotes. An attribute's value is allowed to be a blank string.\par
+Example:\par
+xmlNodeAttributeValueSet(node, "alpha", "0.7")\par
+\par
+\f2 xmlNodeAttributeValueGet$(Node, Attribute$)\par
+\f1\tab This returns the value of the specified attribute, if it exists. If it doesn't exist, a blank string will be returned.\par
+Example:\par
+EntityAlpha Entity\\Mesh, xmlNodeAttributeGet(Entity\\Node, "alpha")\par
+\par
+\f2 xmlNodeAttributeNameSet(Node, Attribute$, NewName$)\par
+\f1\tab This sets the name of an attribute (\i not\i0  it's value). After using this function, the attribute must be refferred to as the new name specified in NewName$, since the old attribute name (Attribute$) has been changed. Note: attribute names are case sensitive.\f0\fs24\par
+\f1\fs20 Example:\par
+xmlNodeAttributeNameSet(node, "pitch", "Xangle")\par
+\par
+\f2 xmlNodeAttributeDelete(Node, Attribute$)\par
+\f1\tab This deletes an attribute. Once a new attribute is created when using the xmNodeAttributeSet() function, it will continue to reside in memory, and to be saved to files even if it's value is blank. To \i completely \i0 remove an un-used (or used) attribute of a node, use this function.\par
+Example:\par
+xmlNodeAttributeDelete(node, "hidden")\par
+\par
+\f2 xmlNodeDataSet(Node, NodeData$)\par
+\f1\tab This sets a node's data string. A node's data is a string of text contained within the opening and closing node tags.\par
+Example:\par
+xmlNodeDataSet(titlenode, "BlitzXML")\par
+\par
+\f2 xmlNodeDataGet$(Node)\par
+\f1\tab This returns a node's data string. A node's data is a string of text contained within the opening and closing node tags.\par
+\par
+\f2 xmlSave(FileName$, RootNode)\par
+\f1\tab This function saves all XML nodes that are inside the RootNode node, to the specified file. If any errors occur, false will be returned, if not true will be returned. Errors can be accessed using the xmlErrorCount(), xmlErrorPosition(), and xmlError$() functions. Note: RootNode MUST be a root node, or else unexpected errors may occur.\par
+\par
+\f2 xmlLoad(FileName$)\par
+\f1\tab This function loads and parses XML nodes from the specified XML file. Note: This (BlitzXML's xml parser) only supports XML files with standard XML tags and attributes with values enclosed in quotes. If errors occur, False is returned. Errors can be accessed using the xmlErrorCount(), xmlErrorPosition(), and xmlError$() functions. If no error occur, and the file has been parsed successfully, the handle of the root node is returned. This handle should NOT be lost, or there will be a memory leak. You can delete all the file's nodes later on by calling xmlNodeDelete(root_node_handle). \par
+\par
+\f2 xmlErrorCount()\par
+\f1\tab This function returns the number of errors from the last file parse action performed.\par
+\par
+\f2 xmlErrorPosition(ErrorNumber)\par
+\f1\tab This returns the position of the specified error (in characters from the beginning of the file).\par
+\par
+\f2 xmlError$(ErrorNumber)\par
+\f1\tab This returns the description of the requested error.\par
+\par
+\par
+}
+ 

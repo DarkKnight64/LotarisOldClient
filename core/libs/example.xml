@@ -1,0 +1,41 @@
+<!--Test-->
+<?xml version="1.0"?>
+<map>
+  <info>
+    <title>Test World</title>
+    <author>JohnJ</author>
+    <description>
+      This is a test file in XML
+      format used to test the
+      BlitzXML loader/saver
+      library.
+    </description>
+  </info>
+  <world>
+    <entity type="cube">
+      <position x="3" y="0" z="0"/>
+      <rotation pitch="57" yaw="35" roll="5"/>
+      <color r="0" g="0" b="255"/>
+    </entity>
+    <entity type="sphere">
+      <position x="-3" y="0" z="0"/>
+      <color r="255" g="0" b="0"/>
+    </entity>
+    <entity type="light">
+      <position x="-3" y="5" z="2"/>
+      <color r="255" g="255" b="255"/>
+      <source type="point" range="7"/>
+    </entity>
+    <entity type="camera">
+      <position x="-7" y="-1" z="-4"/>
+      <rotation yaw="-60"/>
+      <bgcolor r="64" g="128" b="255"/>
+    </entity>
+    <entity type="camera">
+      <position x="0" y="8" z="0"/>
+      <rotation pitch="90"/>
+      <bgcolor r="0" g="255" b="0"/>
+      <viewport x="0" y="400" width="200" height="200"/>
+    </entity>
+  </world>
+</map>
