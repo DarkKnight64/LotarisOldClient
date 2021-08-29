@@ -8,7 +8,7 @@ This was a pre-Beta 2 release, and the saving to file is partially broken. Norma
 
 No support will be provided at all.
 
-Lotaris isn't discontinued but rewritten.
+Lotaris development has ceased as of April 24, 2019.
 
 Controls:
 - MOUSE1: Add block
