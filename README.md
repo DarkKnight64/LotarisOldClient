@@ -6,7 +6,7 @@ This is the old Lotaris source code, before I threw everything out and restarted
 
 This was a pre-Beta 2 release, and the saving to file is partially broken. Normal blocks will still save and load, but materials don't load.
 
-No support unless it doesn't work at all or a major feature is broken.
+No support will be provided at all.
 
 Lotaris isn't discontinued but rewritten.
 
